@@ -5,10 +5,11 @@ export interface TodoItemProps {
     id: number;
     title: string;
     description: string;
-    onUpdate: (id: number, title: string, description: string) => void; // 更新用のコールバック
+    onUpdate: (id: number, title: string, description: string) => void;
+    onDelete: (id: number) => void;
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ id, title, description, onUpdate }) => {
+const TodoItem: React.FC<TodoItemProps> = ({ id, title, description, onUpdate, onDelete }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedTitle, setEditedTitle] = useState(title);
     const [editedDescription, setEditedDescription] = useState(description);
@@ -20,6 +21,11 @@ const TodoItem: React.FC<TodoItemProps> = ({ id, title, description, onUpdate })
     const handleSaveClick = () => {
         onUpdate(id, editedTitle, editedDescription); // 更新処理を呼び出し
         setIsEditing(false); // 編集モードを終了
+    };
+
+    const handleDeleteClick = (event: React.MouseEvent) => {
+        event.stopPropagation();
+        onDelete(id); // 削除処理を呼び出し
     };
 
     return (
@@ -49,6 +55,9 @@ const TodoItem: React.FC<TodoItemProps> = ({ id, title, description, onUpdate })
                         <Typography variant="body2" color="textSecondary">
                             {description}
                         </Typography>
+                        <Button onClick={handleDeleteClick} variant="outlined" color="secondary">
+                            Delete
+                        </Button>
                     </div>
                 </>
             )}

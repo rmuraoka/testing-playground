@@ -4,7 +4,15 @@ import TodoItem from "./TodoItem";
 
 describe('TodoItem Component', () => {
     test('should display the correct number of tasks', () => {
-        render(<TodoItem id={1} title={'Sample Task'} description={'Description for task'} onUpdate={() => {}} />);
+        render(
+            <TodoItem
+                id={1}
+                title={'Sample Task'}
+                description={'Description for task'}
+                onUpdate={() => {}}
+                onDelete={() => {}}
+            />
+        );
 
         // タスクのタイトルが表示されているかを確認
         const task = screen.getByText('Sample Task');
