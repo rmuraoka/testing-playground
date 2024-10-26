@@ -83,7 +83,7 @@ export const TodoListContainer: React.FC = () => {
             },
         });
         if (response.ok) {
-            fetchTodos(); // 更新後にタスクを再取得
+            setTodos((prevTodos) => prevTodos.filter((todo: Todo) => todo.id !== id));
         }
     };
 

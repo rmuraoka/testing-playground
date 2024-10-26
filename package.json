@@ -1,5 +1,11 @@
 {
   "dependencies": {
     "dotenv": "^16.4.5"
-  }
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.2",
+    "@types/node": "^22.8.1",
+    "playwright": "^1.48.2"
+  },
+  "scripts": {}
 }

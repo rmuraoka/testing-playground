@@ -55,7 +55,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ id, title, description, onUpdate, o
                         <Typography variant="body2" color="textSecondary">
                             {description}
                         </Typography>
-                        <Button onClick={handleDeleteClick} variant="outlined" color="secondary">
+                        <Button data-testid={`delete-task-button-${title}`} onClick={handleDeleteClick} variant="outlined" color="secondary">
                             Delete
                         </Button>
                     </div>
