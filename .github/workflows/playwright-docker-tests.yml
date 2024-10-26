@@ -27,7 +27,7 @@ jobs:
       - name: Run Playwright Tests
         run: |
           echo "Waiting for services to be ready..."
-          until curl --output /dev/null --silent --head --fail http://localhost:3000; do
+          until curl --output /dev/null --silent --head --fail http://localhost:5000; do
             printf '.'
             sleep 5
           done
