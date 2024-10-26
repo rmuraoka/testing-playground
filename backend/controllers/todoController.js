@@ -1,9 +1,15 @@
 const todoService = require('../services/todoService');
 
 // GET /todos
-const getTodos = (req, res) => {
-    const todos = todoService.getTodos();
-    res.json(todos);
+const getTodos = async (req, res) => {
+    try {
+        const todos = await todoService.getTodos();
+        const formattedTodos = todos.map(todo => todo.toJSON());
+        res.status(200).json(formattedTodos);
+    } catch (error) {
+        console.error('Error fetching todos:', error);
+        res.status(500).json({message: 'Failed to retrieve todos'});
+    }
 };
 
 // POST /todos

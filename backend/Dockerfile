@@ -1,5 +1,8 @@
 # ベースイメージとして Node.js の公式イメージを使用
-FROM node:16
+FROM node:14
+
+# 必要なパッケージをインストール
+RUN apt-get update && apt-get install -y python make g++
 
 # 作業ディレクトリを指定
 WORKDIR /app

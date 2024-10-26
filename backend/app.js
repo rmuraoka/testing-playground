@@ -1,20 +1,18 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./config/swaggerOptions');
 const todoRoutes = require('./routes/todoRoutes');
 
 const app = express();
 
-// ミドルウェア
-const allowedOrigin = 'http://localhost:3000';
-app.use(cors({
-    origin: allowedOrigin, // CORSの許可オリジンを設定
-    credentials: true // フロントエンドのURL
-}));
-app.use(bodyParser.json());
+app.use(cors());
+app.use(express.json());
 
-// ルートの設定
+// Swagger UIのセットアップ
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// Todoのルート設定
 app.use('/todos', todoRoutes);
 
 module.exports = app;
-
