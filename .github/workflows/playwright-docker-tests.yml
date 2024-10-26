@@ -32,9 +32,10 @@ jobs:
             sleep 5
           done
           echo "Services are ready. Running tests..."
-          npm run test || (echo "Test failed, taking screenshot..." && npx playwright show-screenshots)
+          npm run test
 
       - name: Upload Screenshot
+        if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: error-screenshot
