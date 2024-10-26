@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, Typography} from '@mui/material';
+import {Box, Typography} from '@mui/material';
 import TodoForm from "./TodoForm";
 import TodoItem from "./TodoItem";
 
@@ -17,7 +17,7 @@ interface TodoListProps {
 }
 
 // TodoListコンポーネント
-const TodoList: React.FC<TodoListProps> = ({ todos, onUpdateClick, onDeleteClick }) => { // 修正: 引数をオブジェクトで受け取る
+const TodoList: React.FC<TodoListProps> = ({todos, onUpdateClick, onDeleteClick}) => { // 修正: 引数をオブジェクトで受け取る
     return (
         <>
             <Box>
@@ -68,7 +68,7 @@ export const TodoListContainer: React.FC = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ title, description }),
+            body: JSON.stringify({title, description}),
         });
         if (response.ok) {
             fetchTodos(); // 更新後にタスクを再取得
@@ -96,7 +96,7 @@ export const TodoListContainer: React.FC = () => {
             <Typography variant="h4" gutterBottom>
                 Todo List
             </Typography>
-            <TodoForm onAddTodo={handleAddTodo} />
+            <TodoForm onAddTodo={handleAddTodo}/>
             <TodoList
                 todos={todos}
                 onUpdateClick={handleUpdateTodo}

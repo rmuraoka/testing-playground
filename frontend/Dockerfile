@@ -10,6 +10,9 @@ COPY package*.json ./
 # 依存関係をインストール
 RUN npm install
 
+# エラー対策
+RUN npm dedupe
+
 # アプリケーションコードをコピー
 COPY ../.. .
 
