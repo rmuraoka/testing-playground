@@ -1,37 +1,67 @@
 const todoService = require('../services/todoService');
+const Todo = require('../models/Todo');
+
+// モデルをモック化
+jest.mock('../models/Todo');
 
 describe('Todo Service', () => {
-    test('should return all todos', () => {
-        const todos = todoService.getTodos();
-        expect(todos.length).toBeGreaterThan(0);
+    beforeEach(() => {
+        jest.clearAllMocks();  // 各テストの前にモックをリセット
     });
 
-    test('should add a new todo', () => {
-        const newTodo = { title: 'Test todo', description: 'This is a test todo' };
-        const addedTodo = todoService.addTodo(newTodo);
+    test('should return all todos', async () => {
+        const mockTodos = [{ id: 1, title: 'Test Todo', description: 'Test Description' }];
+        Todo.findAll.mockResolvedValue(mockTodos);
 
-        expect(addedTodo).toHaveProperty('id');
-        expect(addedTodo.title).toBe('Test todo');
+        const todos = await todoService.getTodos();
+        expect(Todo.findAll).toHaveBeenCalledTimes(1);
+        expect(todos).toEqual(mockTodos);
     });
 
-    test('should update an existing todo', () => {
-        const updatedTodo = todoService.updateTodo(1, { title: 'Updated title' });
-        expect(updatedTodo).not.toBeNull();
-        expect(updatedTodo.title).toBe('Updated title');
+    test('should add a new todo', async () => {
+        const newTodo = { title: 'New Todo', description: 'New Description' };
+        const mockCreatedTodo = { id: 1, ...newTodo };
+        Todo.create.mockResolvedValue(mockCreatedTodo);
+
+        const createdTodo = await todoService.addTodo(newTodo);
+        expect(Todo.create).toHaveBeenCalledWith(newTodo);
+        expect(createdTodo).toEqual(mockCreatedTodo);
     });
 
-    test('should return null for non-existing todo update', () => {
-        const updatedTodo = todoService.updateTodo(999, { title: 'Non-existing' });
+    test('should update an existing todo', async () => {
+        const updatedData = { title: 'Updated Todo', description: 'Updated Description' };
+        const mockTodo = { id: 1, ...updatedData, update: jest.fn().mockResolvedValue(updatedData) };
+        Todo.findByPk.mockResolvedValue(mockTodo);
+
+        const updatedTodo = await todoService.updateTodo(1, updatedData);
+        expect(Todo.findByPk).toHaveBeenCalledWith(1);
+        expect(mockTodo.update).toHaveBeenCalledWith(updatedData);
+        expect(updatedTodo).toEqual(mockTodo);
+    });
+
+    test('should delete an existing todo', async () => {
+        const mockTodo = { id: 1, destroy: jest.fn().mockResolvedValue(true) };
+        Todo.findByPk.mockResolvedValue(mockTodo);
+
+        const result = await todoService.deleteTodo(1);
+        expect(Todo.findByPk).toHaveBeenCalledWith(1);
+        expect(mockTodo.destroy).toHaveBeenCalledTimes(1);
+        expect(result).toBe(true);
+    });
+
+    test('should return null when updating a non-existing todo', async () => {
+        Todo.findByPk.mockResolvedValue(null);
+
+        const updatedTodo = await todoService.updateTodo(999, { title: 'Non-existing' });
+        expect(Todo.findByPk).toHaveBeenCalledWith(999);
         expect(updatedTodo).toBeNull();
     });
 
-    test('should delete an existing todo', () => {
-        const isDeleted = todoService.deleteTodo(1);
-        expect(isDeleted).toBe(true);
-    });
+    test('should return false when deleting a non-existing todo', async () => {
+        Todo.findByPk.mockResolvedValue(null);
 
-    test('should return false for non-existing todo deletion', () => {
-        const isDeleted = todoService.deleteTodo(999);
-        expect(isDeleted).toBe(false);
+        const result = await todoService.deleteTodo(999);
+        expect(Todo.findByPk).toHaveBeenCalledWith(999);
+        expect(result).toBe(false);
     });
 });
