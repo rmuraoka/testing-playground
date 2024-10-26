@@ -1,4 +1,5 @@
 const todoService = require('../services/todoService');
+const Todo = require('../models/Todo');
 
 // GET /todos
 const getTodos = async (req, res) => {
@@ -13,9 +14,15 @@ const getTodos = async (req, res) => {
 };
 
 // POST /todos
-const addTodo = (req, res) => {
-    const newTodo = todoService.addTodo(req.body);
-    res.json(newTodo);
+const addTodo = async (req, res) => {
+    try {
+        const { title, description } = req.body; // リクエストからデータを取得
+        const newTodo = await Todo.create({ title, description });
+        res.status(201).json(newTodo); // 201 Created ステータスを返す
+    } catch (error) {
+        console.error('Error adding todo:', error);
+        res.status(500).json({ message: 'Failed to add todo' });
+    }
 };
 
 // PUT /todos/:id
