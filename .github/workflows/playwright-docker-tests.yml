@@ -27,7 +27,7 @@ jobs:
       - name: Run Playwright Tests
         run: |
           echo "Waiting for services to be ready..."
-          until curl --output /dev/null --silent --head --fail http://localhost:5000; do
+          until curl --output /dev/null --silent --head --fail http://localhost:5000/todos; do
             printf '.'
             sleep 5
           done
@@ -42,28 +42,24 @@ jobs:
           path: error-screenshot.png
 
       - name: Get Docker logs
-        if: failure()
         run: |
           docker logs testing-playground-backend-1 > backend_logs.txt || echo "No logs available"
           docker logs testing-playground-frontend-1 > frontend_logs.txt || echo "No logs available"
           docker logs testing-playground-db-1 > db_logs.txt || echo "No logs available"
 
       - name: Upload Docker logs（frontend）
-        if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: frontend-logs
           path: frontend_logs.txt
 
       - name: Upload Docker logs（backend）
-        if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: backend-logs
           path: backend_logs.txt
 
       - name: Upload Docker logs（db）
-        if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: db-logs
