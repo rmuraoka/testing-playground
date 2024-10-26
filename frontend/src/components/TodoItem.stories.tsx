@@ -15,4 +15,7 @@ export const Default = () =>
         onUpdate={() => {
             console.log('onUpdate');
         }}
+        onDelete={() => {
+            console.log('onUpdate');
+        }}
     />;

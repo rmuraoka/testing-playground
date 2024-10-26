@@ -12,11 +12,12 @@ interface Todo {
 
 interface TodoListProps {
     todos: Todo[];
-    onUpdateClick: (id: number, title: string, description: string) => void; // 更新処理のためのプロパティ
+    onUpdateClick: (id: number, title: string, description: string) => void;
+    onDeleteClick: (id: number) => void;
 }
 
 // TodoListコンポーネント
-const TodoList: React.FC<TodoListProps> = ({ todos, onUpdateClick }) => { // 修正: 引数をオブジェクトで受け取る
+const TodoList: React.FC<TodoListProps> = ({ todos, onUpdateClick, onDeleteClick }) => { // 修正: 引数をオブジェクトで受け取る
     return (
         <>
             <Box>
@@ -25,7 +26,9 @@ const TodoList: React.FC<TodoListProps> = ({ todos, onUpdateClick }) => { // 修
                         id={todo.id}
                         title={todo.title}
                         description={todo.description}
+                        key={todo.id}
                         onUpdate={onUpdateClick}
+                        onDelete={onDeleteClick}
                     />
                 ))}
             </Box>
@@ -72,6 +75,18 @@ export const TodoListContainer: React.FC = () => {
         }
     };
 
+    const handleDeleteTodo = async (id: number) => {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/todos/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        if (response.ok) {
+            fetchTodos(); // 更新後にタスクを再取得
+        }
+    };
+
     useEffect(() => {
         fetchTodos(); // 初回マウント時にタスクを取得
     }, []);
@@ -82,7 +97,11 @@ export const TodoListContainer: React.FC = () => {
                 Todo List
             </Typography>
             <TodoForm onAddTodo={handleAddTodo} />
-            <TodoList todos={todos} onUpdateClick={handleUpdateTodo}/>
+            <TodoList
+                todos={todos}
+                onUpdateClick={handleUpdateTodo}
+                onDeleteClick={handleDeleteTodo}
+            />
         </Box>
     );
 };

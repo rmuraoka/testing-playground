@@ -18,4 +18,7 @@ export const Default = () =>
         onUpdateClick={(id, title, description) => {
             console.log('Updated Task:', { id, title, description });
         }}
+        onDeleteClick={(id) => {
+            console.log('Updated Task:', { id});
+        }}
     />;
