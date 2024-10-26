@@ -21,9 +21,15 @@ const connectWithRetry = async () => {
     throw new Error('Could not connect to the database after multiple attempts');
 };
 
-connectWithRetry().catch(err => {
-    console.error(err);
-    process.exit(1); // エラーが発生した場合はプロセスを終了
-});
+const checkDbConnection = async () => {
+    try {
+        await connectWithRetry();
+    } catch (err) {
+        console.error(err);
+        process.exit(1); // エラーが発生した場合はプロセスを終了
+    }
+};
+
+checkDbConnection();
 
 module.exports = sequelize;
