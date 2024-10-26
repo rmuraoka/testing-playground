@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Box, Button, Typography} from '@mui/material';
 import TodoForm from "./TodoForm";
+import TodoItem from "./TodoItem";
 
 // Todo型の定義
 interface Todo {
@@ -9,24 +10,25 @@ interface Todo {
     description: string;
 }
 
-// TodoListコンポーネント
-const TodoList: React.FC<{ todos: Todo[] }> = ({todos}) => {
+interface TodoListProps {
+    todos: Todo[];
+    onUpdateClick: (id: number, title: string, description: string) => void; // 更新処理のためのプロパティ
+}
 
+// TodoListコンポーネント
+const TodoList: React.FC<TodoListProps> = ({ todos, onUpdateClick }) => { // 修正: 引数をオブジェクトで受け取る
     return (
         <>
             <Box>
                 {todos.map((todo) => (
-                    <Box key={todo.id} p={2} border={1} borderRadius={4} mb={2}>
-                        <Typography variant="h6">{todo.title}</Typography>
-                        <Typography variant="body2" color="textSecondary">
-                            {todo.description}
-                        </Typography>
-                    </Box>
+                    <TodoItem
+                        id={todo.id}
+                        title={todo.title}
+                        description={todo.description}
+                        onUpdate={onUpdateClick}
+                    />
                 ))}
             </Box>
-            <Button variant="contained" color="primary">
-                Add Task
-            </Button>
         </>
     );
 };
@@ -57,6 +59,19 @@ export const TodoListContainer: React.FC = () => {
         }
     };
 
+    const handleUpdateTodo = async (id: number, title: string, description: string) => {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/todos/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ title, description }),
+        });
+        if (response.ok) {
+            fetchTodos(); // 更新後にタスクを再取得
+        }
+    };
+
     useEffect(() => {
         fetchTodos(); // 初回マウント時にタスクを取得
     }, []);
@@ -67,7 +82,7 @@ export const TodoListContainer: React.FC = () => {
                 Todo List
             </Typography>
             <TodoForm onAddTodo={handleAddTodo} />
-            <TodoList todos={todos}/>
+            <TodoList todos={todos} onUpdateClick={handleUpdateTodo}/>
         </Box>
     );
 };
