@@ -6,20 +6,25 @@ test.describe('Todo List E2E Tests', () => {
     });
 
     test('should add a new task', async ({ page }) => {
-        // タスクを追加する
-        const timestamp = Date.now();
-        await page.locator('[data-testid="title"] input').fill(`New-Task-${timestamp}`);
-        await page.locator('[data-testid="description"] input').fill( 'Description for new task');
-        await page.getByTestId('add-task-button').click();
+        try {
+            // タスクを追加する
+            const timestamp = Date.now();
+            await page.locator('[data-testid="title"] input').fill(`New-Task-${timestamp}`);
+            await page.locator('[data-testid="description"] input').fill( 'Description for new task');
+            await page.getByTestId('add-task-button').click();
 
-        // タスクが表示されていることを確認
-        const taskTitle = await page.locator(`text=New-Task-${timestamp}`);
-        await expect(taskTitle).toBeVisible();
+            // タスクが表示されていることを確認
+            const taskTitle = await page.locator(`text=New-Task-${timestamp}`);
+            await expect(taskTitle).toBeVisible();
 
-        // タスクを削除する
-        await page.getByTestId(`delete-task-button-New-Task-${timestamp}`).click();
+            // タスクを削除する
+            await page.getByTestId(`delete-task-button-New-Task-${timestamp}`).click();
 
-        // タスクが表示されていないことを確認
-        await expect(taskTitle).not.toBeVisible();
+            // タスクが表示されていないことを確認
+            await expect(taskTitle).not.toBeVisible();
+        } catch (error) {
+            await page.screenshot({ path: 'error-screenshot.png' });
+            throw error; // エラーを再スローしてCIに失敗を通知
+        }
     });
 });

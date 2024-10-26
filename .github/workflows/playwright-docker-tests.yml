@@ -32,7 +32,13 @@ jobs:
             sleep 5
           done
           echo "Services are ready. Running tests..."
-          npm test
+          npm run test || (echo "Test failed, taking screenshot..." && npx playwright show-screenshots)
+
+      - name: Upload Screenshot
+        uses: actions/upload-artifact@v2
+        with:
+          name: error-screenshot
+          path: error-screenshot.png
 
       - name: Shutdown Docker Compose
         if: always()
