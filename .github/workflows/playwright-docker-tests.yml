@@ -42,6 +42,7 @@ jobs:
           path: error-screenshot.png
 
       - name: Get Docker logs
+        if: always()
         run: |
           docker logs testing-playground-backend-1 > backend_logs.txt || echo "No logs available"
           docker logs testing-playground-frontend-1 > frontend_logs.txt || echo "No logs available"
@@ -54,6 +55,7 @@ jobs:
           path: frontend_logs.txt
 
       - name: Upload Docker logs（backend）
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: backend-logs
