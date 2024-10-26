@@ -9,7 +9,7 @@ const sampleTodos = [
 
 describe('TodoList Component', () => {
     test('should display the correct number of tasks', () => {
-        render(<TodoList todos={sampleTodos} />);
+        render(<TodoList todos={sampleTodos} onUpdateClick={() => {console.log('onUpdateClick')}} />);
 
         // タスクのタイトルが表示されているかを確認
         const task1 = screen.getByText('Sample Task 1');

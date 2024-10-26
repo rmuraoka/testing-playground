@@ -7,4 +7,12 @@ export default {
     component: TodoItem,
 } as Meta;
 
-export const Default = () => <TodoItem id={1} title={'タイトル'} description={'本文'}/>;
+export const Default = () =>
+    <TodoItem
+        id={1}
+        title={'タイトル'}
+        description={'本文'}
+        onUpdate={() => {
+            console.log('onUpdate');
+        }}
+    />;

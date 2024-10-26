@@ -12,4 +12,10 @@ export default {
     component: TodoList,
 } as Meta;
 
-export const Default = () => <TodoList todos={sampleTodos}/>;
+export const Default = () =>
+    <TodoList
+        todos={sampleTodos}
+        onUpdateClick={(id, title, description) => {
+            console.log('Updated Task:', { id, title, description });
+        }}
+    />;
