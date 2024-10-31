@@ -1,5 +1,5 @@
 # ベースイメージとしてNode.jsを使用
-FROM node:14
+FROM node:18
 
 # 作業ディレクトリを設定
 WORKDIR /app
@@ -9,6 +9,9 @@ COPY package*.json ./
 
 # 依存関係をインストール
 RUN npm install
+
+# エラー対策
+RUN npm dedupe
 
 # アプリケーションコードをコピー
 COPY ../.. .
