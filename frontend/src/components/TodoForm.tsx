@@ -20,6 +20,7 @@ const TodoForm: React.FC<TodoFormProps> = ({ onAddTodo }) => {
     return (
         <Box display="flex" flexDirection="column" mb={2}>
             <TextField
+                data-testid="title"
                 label="Title"
                 variant="outlined"
                 value={title}
@@ -27,13 +28,19 @@ const TodoForm: React.FC<TodoFormProps> = ({ onAddTodo }) => {
                 margin="normal"
             />
             <TextField
+                data-testid="description"
                 label="Description"
                 variant="outlined"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 margin="normal"
             />
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
+            <Button
+                data-testid="add-task-button"
+                variant="contained"
+                color="primary"
+                onClick={handleSubmit}
+            >
                 Add Task
             </Button>
         </Box>

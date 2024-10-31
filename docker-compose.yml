@@ -21,6 +21,8 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
+    depends_on:
+      - db
     ports:
       - "5000:5000"
     environment:
