@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoFrom Default smoke-test 1`] = `
+<div class="MuiBox-root css-1rplq84">
+  <div class="MuiFormControl-root MuiFormControl-marginNormal MuiTextField-root css-1fw0kwd-MuiFormControl-root-MuiTextField-root"
+       data-testid="title"
+  >
+    <label class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root"
+           data-shrink="false"
+           for=":r0:"
+           id=":r0:-label"
+    >
+      Title
+    </label>
+    <div class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root">
+      <input aria-invalid="false"
+             id=":r0:"
+             type="text"
+             class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
+             value
+      >
+      <fieldset aria-hidden="true"
+                class="MuiOutlinedInput-notchedOutline css-1ll44ll-MuiOutlinedInput-notchedOutline"
+      >
+        <legend class="css-81qg8w">
+          <span>
+            Title
+          </span>
+        </legend>
+      </fieldset>
+    </div>
+  </div>
+  <div class="MuiFormControl-root MuiFormControl-marginNormal MuiTextField-root css-1fw0kwd-MuiFormControl-root-MuiTextField-root"
+       data-testid="description"
+  >
+    <label class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root"
+           data-shrink="false"
+           for=":r1:"
+           id=":r1:-label"
+    >
+      Description
+    </label>
+    <div class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root">
+      <input aria-invalid="false"
+             id=":r1:"
+             type="text"
+             class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
+             value
+      >
+      <fieldset aria-hidden="true"
+                class="MuiOutlinedInput-notchedOutline css-1ll44ll-MuiOutlinedInput-notchedOutline"
+      >
+        <legend class="css-81qg8w">
+          <span>
+            Description
+          </span>
+        </legend>
+      </fieldset>
+    </div>
+  </div>
+  <button class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-1abvrni-MuiButtonBase-root-MuiButton-root"
+          tabindex="0"
+          type="button"
+          data-testid="add-task-button"
+  >
+    Add Task
+  </button>
+</div>
+`;

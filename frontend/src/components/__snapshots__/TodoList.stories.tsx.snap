@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoList Default smoke-test 1`] = `
+<div class="MuiBox-root css-0">
+  <div class="MuiBox-root css-mkpezx">
+    <div>
+      <h6 class="MuiTypography-root MuiTypography-h6 css-1miy0lu-MuiTypography-root">
+        Sample Task 1
+      </h6>
+      <p class="MuiTypography-root MuiTypography-body2 css-1a1whku-MuiTypography-root">
+        Description for task 1
+      </p>
+      <button class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedSecondary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorSecondary MuiButton-root MuiButton-outlined MuiButton-outlinedSecondary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorSecondary css-1x6kmiy-MuiButtonBase-root-MuiButton-root"
+              tabindex="0"
+              type="button"
+              data-testid="delete-task-button-Sample Task 1"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+  <div class="MuiBox-root css-mkpezx">
+    <div>
+      <h6 class="MuiTypography-root MuiTypography-h6 css-1miy0lu-MuiTypography-root">
+        Sample Task 2
+      </h6>
+      <p class="MuiTypography-root MuiTypography-body2 css-1a1whku-MuiTypography-root">
+        Description for task 2
+      </p>
+      <button class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedSecondary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorSecondary MuiButton-root MuiButton-outlined MuiButton-outlinedSecondary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorSecondary css-1x6kmiy-MuiButtonBase-root-MuiButton-root"
+              tabindex="0"
+              type="button"
+              data-testid="delete-task-button-Sample Task 2"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
+`;

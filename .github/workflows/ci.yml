@@ -55,3 +55,7 @@ jobs:
       - name: Run ESLint for Frontend
         working-directory: ./frontend
         run: npx eslint .
+
+      - name: Run Snapshot tests
+        working-directory: ./frontend
+        run: npx test-storybook
