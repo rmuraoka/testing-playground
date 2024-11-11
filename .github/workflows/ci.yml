@@ -48,6 +48,10 @@ jobs:
         working-directory: ./frontend
         run: npm install
 
+      - name: Install Playwright browsers
+        working-directory: ./frontend
+        run: npx playwright install
+
       - name: Run frontend tests
         working-directory: ./frontend
         run: npm test
@@ -55,3 +59,14 @@ jobs:
       - name: Run ESLint for Frontend
         working-directory: ./frontend
         run: npx eslint .
+
+      - name: Start Storybook
+        working-directory: ./frontend
+        run: npm run storybook &
+
+      - name: Wait for Storybook to be ready
+        run: npx wait-on http://localhost:6006
+
+      - name: Run Snapshot tests
+        working-directory: ./frontend
+        run: npx test-storybook
