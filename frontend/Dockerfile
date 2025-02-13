@@ -5,16 +5,16 @@ FROM node:18
 WORKDIR /app
 
 # package.jsonとpackage-lock.jsonをコピー
-COPY package*.json ./
+COPY package.json package-lock.json ./
 
 # 依存関係をインストール
-RUN npm install
+RUN npm ci
 
 # エラー対策
 RUN npm dedupe
 
 # アプリケーションコードをコピー
-COPY ../.. .
+COPY . .
 
 # 開発サーバーが動作するポートを公開
 EXPOSE 3000
