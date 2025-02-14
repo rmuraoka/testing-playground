@@ -75,3 +75,14 @@
      ```bash
      npm test
      ```
+
+## その他
+1. **アプリケーションの利用**
+   - http://localhost:3000/ にアクセスすることで利用できます
+1. **DB（PostgreSQL）**
+   - DBeaverなどのツールに以下の情報を入力することで接続できます
+   - host: localhost
+   - port: 5433
+   - database: .envのDB_NAMEの値
+   - ユーザー名: .envのDB_USERの値
+   - パスワード: .envのDB_PASSWORDの値
