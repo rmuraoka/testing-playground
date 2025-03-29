@@ -1,0 +1,59 @@
+desc: Todo API full test
+debug: true
+runners:
+  req:
+    endpoint: http://localhost:5000
+vars:
+  newTodo:
+    title: "runn学習用タスク"
+    description: "まず作って、あとで更新して、最後に消す"
+  updatedTodo:
+    title: "更新済みタスク"
+    description: "これは更新された内容です"
+steps:
+  # 1. 一覧取得（GET）
+  getTodosBefore:
+    req:
+      /todos:
+        get: {}
+    test: |
+      steps.getTodosBefore.res.status == 200
+
+  # 2. 作成（POST）
+  createTodo:
+    req:
+      /todos:
+        post:
+          body:
+            application/json: "{{ vars.newTodo }}"
+    test: |
+      steps.createTodo.res.status == 201
+      && steps.createTodo.res.body != null
+      && steps.createTodo.res.body.title != null
+      && steps.createTodo.res.body.title == vars.newTodo.title
+
+  # 3. 更新（PUT） ※POSTで作ったIDを使う
+  updateTodo:
+    req:
+      /todos/{{ steps.createTodo.res.body.id }}:
+        put:
+          body:
+            application/json: "{{ vars.updatedTodo }}"
+    test: |
+      steps.updateTodo.res.status == 200
+
+  # 4. 削除（DELETE）
+  deleteTodo:
+    req:
+      /todos/{{ steps.createTodo.res.body.id }}:
+        delete: {}
+    test: |
+      steps.deleteTodo.res.status == 200
+
+  # 5. 一覧再取得（GET）
+  getTodosAfter:
+    req:
+      /todos:
+        get: {}
+    test: |
+      steps.getTodosAfter.res.status == 200
