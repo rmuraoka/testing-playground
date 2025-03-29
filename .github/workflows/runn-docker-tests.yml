@@ -1,0 +1,48 @@
+name: runn Docker Test
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup runn
+        uses: k1LoW/gh-setup@v1
+        with:
+          repo: k1LoW/runn
+          version: latest
+
+      - name: Set up Docker Compose
+        env:
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+        run: |
+          docker compose up -d
+
+      - name: Run runn Tests
+        run: |
+          echo "Waiting for services to be ready..."
+          until curl --output /dev/null --silent --head --fail http://localhost:5000/todos; do
+            printf '.'
+            sleep 5
+          done
+          echo "Services are ready. Running tests..."
+          runn run runn/runn.yaml
+
+      - name: Shutdown Docker Compose
+        if: always()
+        run: |
+          docker compose down
